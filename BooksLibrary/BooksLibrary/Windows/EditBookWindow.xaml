@@ -1,0 +1,38 @@
+﻿<Window
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:BooksLibrary="clr-namespace:BooksLibrary" x:Class="BooksLibrary.Windows.EditBookWindow"
+        Title="Редактировать книгу" Height="300" Width="300" ResizeMode="NoResize" Loaded="Window_Loaded_1">
+    <Grid Margin="12,10,10,10">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="5*"/>
+            <RowDefinition Height="15*"/>
+            <RowDefinition Height="7*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="55*"/>
+            <ColumnDefinition Width="91*"/>
+        </Grid.ColumnDefinitions>
+        <TextBlock Grid.Column="0" Grid.Row="0" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Название" VerticalAlignment="Top"/>
+        <TextBox x:Name="NameTextBox" Grid.Column="1" Grid.Row="0" TextWrapping="Wrap"  VerticalAlignment="Top" Height="22" Text=""/>
+
+        <TextBlock Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Автор" VerticalAlignment="Top"/>
+        <TextBox x:Name="AuthorTextBox" Grid.Column="1" Grid.Row="1" TextWrapping="Wrap"  VerticalAlignment="Top" Height="22"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Издательство" VerticalAlignment="Top"/>
+        <TextBox x:Name="PublisherTextBox" Grid.Column="1" Grid.Row="2" TextWrapping="Wrap"  VerticalAlignment="Top" Height="22"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="3" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Год издания" VerticalAlignment="Top"/>
+        <TextBox x:Name="YearTextBox" Grid.Column="1" Grid.Row="3" TextWrapping="Wrap" VerticalAlignment="Top" Height="22"/>
+
+        <TextBlock Grid.Column="0" Grid.Row="4" HorizontalAlignment="Left" TextWrapping="Wrap" Text="Примечание" VerticalAlignment="Top"/>
+        <TextBox x:Name="NoteTextBox" Grid.Column="1" Grid.Row="4" TextWrapping="Wrap"/>
+        <StackPanel Grid.Column="1" Grid.Row="5" Orientation="Horizontal" HorizontalAlignment="Right" VerticalAlignment="Bottom" >
+            <Button x:Name="SaveButton" Content="Сохранить" Click="SaveButton_Click"/>
+            <Button x:Name="CancelButton" Content="Отмена" Margin="15,0,0,0" Click="CancelButton_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

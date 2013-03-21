@@ -1,0 +1,53 @@
+﻿<Window
+xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+xmlns:local="clr-namespace:BooksLibrary" x:Name="MainContext" x:Class="BooksLibrary.MainWindow"
+Title="Библиотека" Height="360" Width="525" ResizeMode="NoResize" Loaded="MainContext_Loaded">
+    <Window.DataContext>
+        <local:LibraryViewModel/>
+    </Window.DataContext>
+
+    <StackPanel Margin="12,10,10,10">
+
+        <DataGrid x:Name="LibraryGrid" 
+                  Height="250"
+                  VerticalAlignment="Top"
+                  ItemsSource="{Binding Books}"
+                  AutoGenerateColumns="False"
+                  IsReadOnly="True">
+            <!--IsReadOnly="True" очень важно. из за этой штуки создавалась последняя строка. Из за этого в последней пусто строке так же отображалась ненужная кнопка. И самое страшное - проблемы с DataGrid.NewItemPlaceholder и соотсветсвенно с ViewModel(приведение данных)-->
+            <DataGrid.Resources>
+                <DataTemplate x:Key="EditTemplate" >
+                    <!--<TextBlock MouseDown="{Binding DataContext.EditBook, ElementName=LibraryGrid}" CommandParameter="{Binding}">Редактировать</TextBlock>-->
+                    <Button Command="{Binding DataContext.EditBook, ElementName=LibraryGrid}" CommandParameter="{Binding}">Редактировать</Button>
+                </DataTemplate>
+                <DataTemplate x:Key="DeleteTemplate" >
+                    <!--ITS MAGIC!!!(ElementName it saved me) (обявляется здесь и в названии DataGrid)-->
+                    <Button Command="{Binding DataContext.DeleteBook, ElementName=LibraryGrid}" CommandParameter="{Binding}" Background="#FFFF5E5E" Foreground="White" >Удалить</Button>
+                </DataTemplate>
+            </DataGrid.Resources>
+
+            <DataGrid.Columns>
+                <DataGridTextColumn Binding="{Binding Title}"  Header="Книга"/>
+                <DataGridTextColumn Binding="{Binding Author}"  Header="Автор"/>
+                <DataGridTemplateColumn  CellTemplate="{StaticResource EditTemplate}" Header="Редактировать"/>
+                <DataGridTemplateColumn  CellTemplate="{StaticResource DeleteTemplate}" Header="Удалить"/>
+            </DataGrid.Columns>
+        </DataGrid>
+        <Grid Margin="0,10,0,0" >
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+                <ColumnDefinition/>
+            </Grid.ColumnDefinitions>
+            <Button x:Name="AddButton"  Grid.Column="0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding AddBook, Mode=OneWay}">
+                <TextBlock TextWrapping="Wrap"><Run Text="Добавить книгу"/></TextBlock>
+            </Button>
+            <Button x:Name="ClearButton"  Grid.Column="1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="75" Command="{Binding ClearBook, Mode=OneWay}" >
+                <TextBlock  TextWrapping="Wrap"><Run Text="Очистить список"/></TextBlock>
+            </Button>
+            <ProgressBar x:Name="LoadLibraryProgressBar" Grid.Column="2" HorizontalAlignment="Right" Height="20" VerticalAlignment="Top" Width="100"/>
+
+        </Grid>
+    </StackPanel>
+</Window>
